@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order index{% endblock %}
+
+{% block body %}
+    <h1>Order index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreateAt</th>
+                <th>State</th>
+                <th>Carrier_name</th>
+                <th>Carrier_price</th>
+                <th>Delivery</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.createAt ? order.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ order.state }}</td>
+                <td>{{ order.carrierName }}</td>
+                <td>{{ order.carrierPrice }}</td>
+                <td>{{ order.delivery }}</td>
+                <td>
+                    <a href="{{ path('app_order_crud_controlle_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('app_order_crud_controlle_edit', {'id': order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_order_crud_controlle_new') }}">Create new</a>
+{% endblock %}

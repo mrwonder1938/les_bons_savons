@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+body {
+        background-color:rgb(18, 238, 117); /* Fond marron clair */
+    }
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px;
+}
+
+.carousel {
+    overflow: hidden;
+    width: 80%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 25%; 
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.carousel-btn {
+    color: rgb(3, 12, 8);
+    border: 2px black solid;
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.carousel-btn:hover {
+    background-color:rgb(10, 15, 14);
+    color:rgb(255, 3, 3);
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<!-- Carrousel Ingrédients -->
+<div class="carousel-container">
+    <button id="prev" class="carousel-btn">&#10096;</button>
+    <div class="carousel">
+        <div class="carousel-track">
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/moringa_2025_stage.jpg') }}" alt="Moringa">
+                    <p>Moringa</p><p>23.80€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/charbon.jpg') }}" alt="Charbon">
+                    <p>Charbon</p><p>19.99€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/curcuma.jpg') }}" alt="Curcuma">
+                    <p>Curcuma</p><p>19.99€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/miel.jpg') }}" alt="Miel">
+                    <p>Miel</p><p>21.50€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/romarin.jpg') }}" alt="Romarin">
+                    <p>Romarin</p><p>18.90€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/poudre_de_rose.jpg') }}" alt="Poudre de rose">
+                    <p>Poudre de Rose</p><p>22.00€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/aloe_vera.jpg') }}" alt="Aloe Vera">
+                    <p>Aloe Vera</p><p>17.99€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/karite.jpg') }}" alt="Karité">
+                    <p>Karité</p><p>19.50€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="ingredients">
+                    <img src="{{ asset('images/huile_de_coco.jpg') }}" alt="Huile de Coco">
+                    <p>Huile de Coco</p><p>16.80€</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <button id="next" class="carousel-btn">&#10097;</button>
+</div>
+
+<!-- Carrousel Parfums -->
+<div class="carousel-container">
+    <button id="prev-parfum" class="carousel-btn">&#10096;</button>
+    <div class="carousel">
+        <div class="carousel-track">
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/patchouli.jpg') }}" alt="Patchouli">
+                    <p>Patchouli</p><p>25.00€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/jasmin.jpg') }}" alt="Jasmin">
+                    <p>Jasmin</p><p>22.50€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/vanille.jpg') }}" alt="Vanille">
+                    <p>Vanille</p><p>24.00€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/rose.jpg') }}" alt="Rose">
+                    <p>Rose</p><p>26.00€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/menthe_poivree.jpg') }}" alt="Menthe_Poivree.jpg">
+                    <p>Menthe Poivrée</p><p>23.50€</p>
+                </a>
+            </div>
+            <div class="slide">
+                <a href="parfums">
+                    <img src="{{ asset('images/lavande.jpg') }}" alt="Lavande">
+                    <p>Lavande</p><p>21.00€</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <button id="next-parfum" class="carousel-btn">&#10097;</button>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Carrousel des Ingrédients
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        let currentIndex = 0;
+
+        function updateCarouselPosition() {
+            const offset = slideWidth * currentIndex;
+            track.style.transform = `translateX(-${offset}px)`;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < slides.length - 4) { 
+                currentIndex++;
+                updateCarouselPosition();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarouselPosition();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            updateCarouselPosition();
+        });
+
+        // Carrousel des Parfums
+        const trackParfum = document.querySelectorAll('.carousel-container')[1].querySelector('.carousel-track');
+        const slidesParfum = Array.from(trackParfum.children);
+        const prevButtonParfum = document.getElementById('prev-parfum');
+        const nextButtonParfum = document.getElementById('next-parfum');
+
+        let currentIndexParfum = 0;
+
+        function updateCarouselPositionParfum() {
+            const offset = slideWidth * currentIndexParfum;
+            trackParfum.style.transform = `translateX(-${offset}px)`;
+        }
+
+        nextButtonParfum.addEventListener('click', () => {
+            if (currentIndexParfum < slidesParfum.length - 4) { 
+                currentIndexParfum++;
+                updateCarouselPositionParfum();
+            }
+        });
+
+        prevButtonParfum.addEventListener('click', () => {
+            if (currentIndexParfum > 0) {
+                currentIndexParfum--;
+                updateCarouselPositionParfum();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            updateCarouselPositionParfum();
+        });
+    });
+</script>
+{% endblock %}

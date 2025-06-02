@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %} 
+
+<div class="container my-5">
+    <h1>Connexion</h1>
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    
+    <form action="{{ path('app_login') }}" method="post">
+        <label for="username">Ton email :</label>
+        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
+
+        <label for="password">Ton mot de passe :</label>
+        <input class="form-control" type="password" id="password" name="_password">
+
+        {# Si vous voulez contrôler l'URL vers laquelle l'utilisateur est redirigé en cas de succès #}
+        <input type="hidden" name="_target_path" value="{{ path('app_account') }}">
+
+        <button type="submit" class="btn btn-success my-4">valider</button>
+    </form>
+    <br>
+    <a href="{{ path('app_register') }}">Inscription</a>
+    <br>
+    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a> <!-- Lien vers la réinitialisation -->
+</div>
+
+{% endblock %}

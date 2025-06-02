@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Parfums{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Nos Parfums</h1>
+    <div class="row">
+        {% for parfum in parfums %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ parfum.image }}" class="card-img-top" alt="{{ parfum.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ parfum.name }}</h5>
+                    <p class="card-text">{{ parfum.description }}</p>
+                    <form action="{{ path('parfum_order') }}" method="POST">
+                        <input type="hidden" name="parfum" value="{{ parfum.name }}">
+                        <button type="submit" class="btn btn-primary">Commander</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

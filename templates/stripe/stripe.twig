@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Stripe{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-4">Paiement sécurisé avec Stripe</h1>
+
+    <!-- Stripe Buy Button script -->
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+    <!-- Stripe Buy Button -->
+    <stripe-buy-button
+        buy-button-id="buy_btn_1REubvFpgFe46RRfppr5wxI3"  <!-- Remplace par ton vrai ID -->
+        publishable-key="pk_test_51REuSmFpgFe46RRfRIIirFzCgRNT0Dt3SYK6sJ1u1cfRAP3JhGbituXnP92nVA0jLB4nxmKfQBPBzNIInyzweHyW00hgbanp7m"  <!-- Remplace par ta vraie clé publique -->
+    >
+    </stripe-buy-button>
+{% endblock %}
+
+

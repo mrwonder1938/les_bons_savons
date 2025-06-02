@@ -1,0 +1,64 @@
+{# templates/ingredient/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des ingrédients{% endblock %}
+
+{% block body %}z
+<div class="container mt-4">
+  <div class="row">
+    <!-- Boucle pour afficher chaque ingrédient -->
+    {% for ingredient in ingredients %}
+    <div class="col-md-4 mb-4">
+      <div class="card" style="width: 18rem;">
+        <!-- Affichage de l'image de l'ingrédient -->
+        <img src="{{ asset('images/' ~ ingredient.image) }}" class="card-img-top" alt="{{ ingredient.name }}">
+        
+        <div class="card-body">
+          <!-- Nom de l'ingrédient -->
+          <h5 class="card-title">{{ ingredient.name }}</h5>
+          
+          <!-- Description de l'ingrédient -->
+          <p class="card-text">{{ ingredient.description }}</p>
+          
+          <!-- Quantité avec boutons pour ajuster -->
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" onclick="decreaseQuantity({{ ingredient.id }})">-</button>
+            <span id="quantity-{{ ingredient.id }}">1</span>
+            <button class="btn btn-secondary" onclick="increaseQuantity({{ ingredient.id }})">+</button>
+          </div>
+          
+          <!-- Bouton Commander -->
+          <button class="btn btn-primary mt-3" onclick="addToCart({{ ingredient.id }})">Commander</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Fonction pour augmenter la quantité
+  function increaseQuantity(id) {
+    let quantity = document.getElementById('quantity-' + id).innerText;
+    quantity = parseInt(quantity) + 1;
+    document.getElementById('quantity-' + id).innerText = quantity;
+  }
+
+  // Fonction pour diminuer la quantité
+  function decreaseQuantity(id) {
+    let quantity = document.getElementById('quantity-' + id).innerText;
+    if (quantity > 1) {
+      quantity = parseInt(quantity) - 1;
+      document.getElementById('quantity-' + id).innerText = quantity;
+    }
+  }
+
+  // Fonction pour ajouter un ingrédient au panier (logique à définir)
+  function addToCart(id) {
+    const quantity = document.getElementById('quantity-' + id).innerText;
+    alert('Ingrédient ' + id + ' ajouté avec quantité: ' + quantity);
+    // Vous pouvez ajouter la logique pour envoyer l'ingrédient au panier ici.
+  }
+</script>
+{% endblock %}
